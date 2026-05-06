@@ -1,59 +1,46 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const SignupForm = () => {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [address, setAddres] = useState("");
-  const [zipCode, setZipcode] = useState("");
-  const [phone, setPhone] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { error },
+  } = useForm();
 
-  const handleClearClick = () => {};
-  const handleSubmitForm = () => {};
+  const handleClearClick = () => {
+    reset();
+  };
+  const handleFormSubmit = (data) => {
+    console.log(data);
+  };
+
+  console.log(error);
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
       <label>
         Name
-        <input
-          type="text"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
+        <input {...register("name", { required: true })} />
       </label>
       <br />
       <label>
         Age
-        <input
-          type="text"
-          onChange={(e) => setAge(e.target.value)}
-          value={age}
-        />
+        <input {...register("age", { required: true })} />
       </label>
       <br />
       <label type="text">
         Address
-        <input
-          type="text"
-          onChange={(e) => setAddres(e.target.value)}
-          value={address}
-        />
+        <input {...register("address", { required: true })} />
       </label>
       <br />
       <label>
         Zipcode
-        <input
-          type="text"
-          onChange={(e) => setZipcode(e.target.value)}
-          value={zipCode}
-        />
+        <input {...register("zipcode", { required: true })} />
       </label>
       <br />
       <label>
         Phone
-        <input
-          type="text"
-          onChange={(e) => setPhone(e.target.value)}
-          value={phone}
-        />
+        <input {...register("phone", { required: true })} />
       </label>
       <br />
       <div>

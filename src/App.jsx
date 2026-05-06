@@ -5,11 +5,16 @@ import { useState, useEffect } from "react";
 import SignupForm from "./components/SignupForm";
 
 function App() {
-  useState(() => {});
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleNavbarSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
     <>
-      <Navbar />
-      <Events />
+      <Navbar onSearch={handleNavbarSearch} />
+      <Events searchTerm={searchTerm} />
       <SignupForm />
     </>
   );

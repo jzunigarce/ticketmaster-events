@@ -1,23 +1,28 @@
-import { useState } from "react";
+import useEventData from "../../hooks/useEventData";
 import EventItem from "./components/EventItem";
-import eventsJson from "../../data/events.json";
 
-const Events = () => {
-  const [data] = useState(eventsJson);
-  const {
-    _embedded: { events },
-  } = data;
+const Events = ({ searchTerm }) => {
+  const { events } = useEventData();
+  const renderEvents = () => {
+    let eventsFiltered = events;
+    if (searchTerm.length > 0) {
+      eventsFiltered = eventsFiltered.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm),
+      );
+    }
+    return eventsFiltered.map((eventItem) => (
+      <EventItem
+        name={eventItem.name}
+        info={eventItem.info}
+        image={eventItem.images[0].url}
+        key={`event-item-${eventItem.id}`}
+      />
+    ));
+  };
   return (
     <div>
       Eventos
-      {events.map((eventItem) => (
-        <EventItem
-          name={eventItem.name}
-          info={eventItem.info}
-          image={eventItem.images[0].url}
-          key={`event-item-${eventItem.id}`}
-        />
-      ))}
+      {renderEvents()}
     </div>
   );
 };
