@@ -3,6 +3,7 @@ import EventItem from "./components/EventItem";
 
 const Events = ({ searchTerm }) => {
   const { events } = useEventData();
+  console.log("test", events);
   const renderEvents = () => {
     let eventsFiltered = events;
     if (searchTerm.length > 0) {
